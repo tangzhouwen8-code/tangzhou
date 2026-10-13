@@ -1,0 +1,43 @@
+name: Publish portfolio
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: portfolio-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import portfolio once
+        run: |
+          if [ ! -f index.html ]; then
+            curl --fail --location --retry 5 --retry-all-errors --max-time 900 'https://transactions-portable-change-elected.trycloudflare.com/portfolio.zip' -o /tmp/portfolio.zip
+            echo 'f9b6aada6b572e12e1ca4f54cc57b0dc3327a28e83444601f4ee63d6ebff03e9  /tmp/portfolio.zip' | sha256sum -c -
+            unzip -o /tmp/portfolio.zip
+            git add index.html style.css app.js assets .nojekyll README.md
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Publish Zhu Danni portfolio and media'
+            git push origin HEAD:main
+          fi
+      - name: Prepare website
+        run: |
+          mkdir -p _site
+          cp index.html style.css app.js .nojekyll _site/
+          cp -R assets _site/
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - uses: actions/deploy-pages@v4
+        id: deployment
