@@ -19,3 +19,7 @@ h1{font-size:clamp(42px,5.1vw,73px);line-height:1.48;letter-spacing:.015em;font-
 @media(max-width:1000px) and (min-width:701px){.hero{column-gap:18px;min-height:640px}.hero-art{height:440px}.landscape-card{width:85%;right:0}.story-note{bottom:8px;padding:17px;width:60%}.art-sticker{width:80px;height:80px;font-size:15px;right:-2%;bottom:24px}.landscape-caption{font-size:11px}.landscape-caption span:last-child{font-size:6px}.art-note{top:-12px}}
 @media(max-width:700px){.hero{padding-top:38px;min-height:0}.hero h1{font-size:clamp(37px,9vw,60px);line-height:1.5;letter-spacing:.015em}.hero-art{height:490px;max-width:420px;margin-top:44px}.landscape-card{width:76%;right:6%;top:25px}.story-note{left:1%;bottom:22px;padding:20px;width:55%}.note-title{font-size:24px}.art-sticker{right:0;bottom:52px;width:88px;height:88px;font-size:16px}.art-note{font-size:13px;left:3%}.index-line{margin-top:5px}.prose{font-size:16px}h2{letter-spacing:.02em}.brand{letter-spacing:.07em}.landscape-caption{font-size:12px}.section-head>p{line-height:1.8}}
 @media(max-width:390px){.hero-art{height:430px}.story-note{padding:17px;bottom:15px}.note-title{font-size:21px}.art-sticker{bottom:42px;width:78px;height:78px;font-size:15px}.landscape-caption span:last-child{font-size:6px}}
+
+/* Keep the four portfolio sections accessible on narrow screens. */
+@media(max-width:700px){header{gap:10px}nav{gap:0}nav a{padding:8px 9px;white-space:nowrap}}
+@media(max-width:360px){header{flex-wrap:wrap}nav{width:100%;justify-content:space-between}html{scroll-padding-top:145px}}
