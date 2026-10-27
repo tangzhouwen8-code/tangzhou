@@ -38,3 +38,15 @@ const sections=links.map(a=>document.querySelector(a.getAttribute('href')));
 let scheduled=false;
 function updatePosition(){scheduled=false;let current=null;sections.forEach(s=>{if(s.getBoundingClientRect().top<=160)current=s;});links.forEach(a=>{if(current&&a.hash==='#'+current.id)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});document.querySelector('.back-top').hidden=window.scrollY<600;}
 window.addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(updatePosition);}},{passive:true});updatePosition();
+
+document.querySelectorAll('.image-preview').forEach(link=>{
+ link.addEventListener('click',event=>{
+  if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+  event.preventDefault();
+  const image=new Image();
+  image.src=link.getAttribute('href');
+  image.alt=link.querySelector('img').alt;
+  image.className='expanded-artwork';
+  showViewer(link.dataset.imageTitle,image);
+ });
+});
